@@ -1,6 +1,7 @@
 package avltree
 
 import (
+	"math/rand"
 	"reflect"
 	"testing"
 )
@@ -174,4 +175,37 @@ func TestAVLTree_RootKey(t *testing.T) {
 			}
 		})
 	}
+}
+
+func helperCreateDataSetInt(b *testing.B) []int {
+	b.Helper()
+
+	return rand.New(rand.NewSource(int64(b.N))).Perm(b.N)
+}
+
+func BenchmarkAVLTree_Int_Int(b *testing.B) {
+	b.Run("insert", func(b *testing.B) {
+		tree := New[int, int](DefaultThreshold)
+
+		numbers := helperCreateDataSetInt(b)
+
+		b.ResetTimer()
+		for k := range numbers {
+			tree.Insert(k, 0)
+		}
+	})
+
+	b.Run("delete", func(b *testing.B) {
+		tree := New[int, int](DefaultThreshold)
+
+		numbers := helperCreateDataSetInt(b)
+		for k := range helperCreateDataSetInt(b) {
+			tree.Insert(k, 0)
+		}
+
+		b.ResetTimer()
+		for k := range numbers {
+			tree.Delete(k)
+		}
+	})
 }
