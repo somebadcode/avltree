@@ -1,9 +1,5 @@
 package avltree
 
-import (
-	"github.com/somebadcode/avltree/zerovalue"
-)
-
 // InorderPredecessor returns the key and value of the inorder predecessor of the specified key.
 func (tree *AVLTree[K, V]) InorderPredecessor(key K) (K, V, bool) {
 	// To find the inorder predecessor, we should start at the node which we're getting the successor for.
@@ -20,7 +16,7 @@ func (tree *AVLTree[K, V]) InorderPredecessor(key K) (K, V, bool) {
 	// Find the predecessor but if it's nil then it found nothing, return zero key & value, and false.
 	node = tree.inorderPredecessor(subtree, key)
 	if node == nil {
-		return zerovalue.New[K](), zerovalue.New[V](), false
+		return tree.zeroKey, tree.zeroValue, false
 	}
 
 	// Inorder successor found!

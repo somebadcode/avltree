@@ -1,8 +1,12 @@
 package avltree
 
+import (
+	"cmp"
+)
+
 // VisitFunc is used when traversing the tree. The function will be called with the key and value.
 // The traversal can be stopped by returning false.
-type VisitFunc[K Key, V any] func(K, V) bool
+type VisitFunc[K cmp.Ordered, V any] func(K, V) bool
 
 // InorderTraversal will do an inorder traversal of the whole tree.
 func (tree *AVLTree[K, V]) InorderTraversal(visitFunc VisitFunc[K, V]) {
@@ -19,7 +23,7 @@ func (tree *AVLTree[K, V]) PostorderTraversal(visitFunc VisitFunc[K, V]) {
 	postorderTraversal(tree.root, visitFunc)
 }
 
-func inorderTraversal[K Key, V any](node *Node[K, V], visitFunc VisitFunc[K, V]) bool {
+func inorderTraversal[K cmp.Ordered, V any](node *Node[K, V], visitFunc VisitFunc[K, V]) bool {
 	if node == nil {
 		return true
 	}
@@ -35,7 +39,7 @@ func inorderTraversal[K Key, V any](node *Node[K, V], visitFunc VisitFunc[K, V])
 	return inorderTraversal(node.Right, visitFunc)
 }
 
-func preorderTraversal[K Key, V any](node *Node[K, V], visitFunc VisitFunc[K, V]) bool {
+func preorderTraversal[K cmp.Ordered, V any](node *Node[K, V], visitFunc VisitFunc[K, V]) bool {
 	if node == nil {
 		return true
 	}
@@ -51,7 +55,7 @@ func preorderTraversal[K Key, V any](node *Node[K, V], visitFunc VisitFunc[K, V]
 	return preorderTraversal(node.Right, visitFunc)
 }
 
-func postorderTraversal[K Key, V any](node *Node[K, V], visitFunc VisitFunc[K, V]) bool {
+func postorderTraversal[K cmp.Ordered, V any](node *Node[K, V], visitFunc VisitFunc[K, V]) bool {
 	if node == nil {
 		return true
 	}

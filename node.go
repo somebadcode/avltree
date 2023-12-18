@@ -1,6 +1,10 @@
 package avltree
 
-type Node[K Key, V any] struct {
+import (
+	"cmp"
+)
+
+type Node[K cmp.Ordered, V any] struct {
 	Key    K           `json:"k,omitempty"`
 	Value  V           `json:"v,omitempty"`
 	Left   *Node[K, V] `json:"l,omitempty"`

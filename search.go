@@ -1,14 +1,10 @@
 package avltree
 
-import (
-	"github.com/somebadcode/avltree/zerovalue"
-)
-
 func (tree *AVLTree[K, V]) Search(key K) (V, bool) {
 	current := tree.search(key)
 
 	if current == nil {
-		return zerovalue.New[V](), false
+		return tree.zeroValue, false
 	}
 
 	return current.Value, true

@@ -1,6 +1,10 @@
 package avltree
 
-func balanceOf[K Key, V any](node *Node[K, V]) int {
+import (
+	"cmp"
+)
+
+func balanceOf[K cmp.Ordered, V any](node *Node[K, V]) int {
 	if node == nil {
 		return 0
 	}
@@ -8,7 +12,7 @@ func balanceOf[K Key, V any](node *Node[K, V]) int {
 	return heightOf(node.Left) - heightOf(node.Right)
 }
 
-func heightOf[K Key, V any](node *Node[K, V]) int {
+func heightOf[K cmp.Ordered, V any](node *Node[K, V]) int {
 	if node == nil {
 		return -1
 	}
@@ -16,7 +20,7 @@ func heightOf[K Key, V any](node *Node[K, V]) int {
 	return node.Height
 }
 
-func balance[K Key, V any](node *Node[K, V], threshold int) *Node[K, V] {
+func balance[K cmp.Ordered, V any](node *Node[K, V], threshold int) *Node[K, V] {
 	nodeBalance := balanceOf(node)
 
 	if nodeBalance > threshold {
@@ -26,7 +30,11 @@ func balance[K Key, V any](node *Node[K, V], threshold int) *Node[K, V] {
 		} else {
 			node = rotateLeftRight(node)
 		}
-	} else if nodeBalance < -threshold {
+
+		return node
+	}
+
+	if nodeBalance < -threshold {
 		if balanceOf(node.Right) <= 0 {
 			node = rotateLeft(node)
 		} else {
@@ -37,7 +45,7 @@ func balance[K Key, V any](node *Node[K, V], threshold int) *Node[K, V] {
 	return node
 }
 
-func rotateLeft[K Key, V any](x *Node[K, V]) *Node[K, V] {
+func rotateLeft[K cmp.Ordered, V any](x *Node[K, V]) *Node[K, V] {
 	y := x.Right
 	x.Right = y.Left
 	y.Left = x
@@ -48,7 +56,7 @@ func rotateLeft[K Key, V any](x *Node[K, V]) *Node[K, V] {
 	return y
 }
 
-func rotateRight[K Key, V any](x *Node[K, V]) *Node[K, V] {
+func rotateRight[K cmp.Ordered, V any](x *Node[K, V]) *Node[K, V] {
 	y := x.Left
 	x.Left = y.Right
 	y.Right = x
@@ -59,13 +67,13 @@ func rotateRight[K Key, V any](x *Node[K, V]) *Node[K, V] {
 	return y
 }
 
-func rotateLeftRight[K Key, V any](node *Node[K, V]) *Node[K, V] {
+func rotateLeftRight[K cmp.Ordered, V any](node *Node[K, V]) *Node[K, V] {
 	node.Left = rotateLeft(node.Left)
 
 	return rotateRight(node)
 }
 
-func rotateRightLeft[K Key, V any](node *Node[K, V]) *Node[K, V] {
+func rotateRightLeft[K cmp.Ordered, V any](node *Node[K, V]) *Node[K, V] {
 	node.Right = rotateRight(node.Right)
 
 	return rotateLeft(node)
