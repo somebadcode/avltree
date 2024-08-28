@@ -4,7 +4,9 @@ func (tree *AVLTree[K, V]) Search(key K) (V, bool) {
 	current := tree.search(key)
 
 	if current == nil {
-		return tree.zeroValue, false
+		var zeroV V
+
+		return zeroV, false
 	}
 
 	return current.Value, true

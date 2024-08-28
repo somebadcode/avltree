@@ -9,8 +9,6 @@ type AVLTree[K cmp.Ordered, V any] struct {
 	root      *Node[K, V]
 	size      uint
 	threshold int
-	zeroKey   K
-	zeroValue V
 }
 
 // DefaultThreshold is optimal for fast searching.

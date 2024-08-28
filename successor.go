@@ -17,7 +17,10 @@ func (tree *AVLTree[K, V]) InorderSuccessor(key K) (K, V, bool) {
 	// Find the successor but if it's nil then it found nothing, return zero key & value, and false.
 	node = tree.inorderSuccessor(subtree, key)
 	if node == nil {
-		return tree.zeroKey, tree.zeroValue, false
+		var zeroK K
+		var zeroV V
+
+		return zeroK, zeroV, false
 	}
 
 	// Inorder successor found!
