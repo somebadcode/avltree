@@ -19,4 +19,6 @@ An AVL tree is a self-balancing binary search tree.
 | Preorder traversal      | yes         |
 | Postorder traversal     | yes         |
 | Balancing               | yes (AVL)   |
-| Serialization           | no          |
+
+Serialization of the tree will not be implemented since the key and value can be an arbitrary type. It would be better
+for the caller to implement the serialization that fits the use case the best.
