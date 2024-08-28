@@ -16,13 +16,13 @@ func (tree *AVLTree[K, V]) delete(subtree *Node[K, V], key K) *Node[K, V] {
 		return balance(subtree, tree.threshold)
 	}
 
-	switch {
-	case subtree.IsLeaf():
+	switch subtree.Type() {
+	case TypeLeaf:
 		// Leaf nodes can be deleted as is.
 		tree.size--
 
 		return nil
-	case subtree.HasSingleChild():
+	case TypeSingleChild:
 		// Single child node.
 		if subtree.Left != nil {
 			subtree = subtree.Left
