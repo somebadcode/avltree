@@ -4,7 +4,7 @@ This package implements an AVL tree for key-value store.
 
 ## What is an AVL tree?
 
-An AVL tree is a balancing search tree.
+An AVL tree is a self-balancing binary search tree.
 
 ## Features
 
